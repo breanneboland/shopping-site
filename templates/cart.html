@@ -12,7 +12,26 @@
     flash a message indicating melon success
     redirect user to shopping cart page via a link        --> 
 
-    <table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Melon Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for melon in melon_tuple_list %}
+        <tr>
+            <td>{{ melon[0] }}</td>
+            <td>{{ melon[1] }}</td>
+            <td>1</td>
+            <td>{{ melon[1] * 1 }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+    <!-- <table class="table table-striped">
         <thead>
         <tr>
             <th>Melon Name</th>
@@ -49,7 +68,7 @@
         </tbody>
     </table>
 
-    <h3>Total: $27.00</h3>
+    <h3>Total: $27.00</h3> -->
 
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
 
