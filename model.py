@@ -106,14 +106,46 @@ class Customer(object):
 
     A wrapper object that corresponds to rows in the customers table.
     """
+    def __init__(self,
+                    email,
+                    first_name,
+                    last_name,
+                    password):
+        self.email = email #This is the primary key in the db.
+        self.first_name = first_name
+        self.last_name = last_name
+        self.password = password
 
-    # TODO: need to implement this
+    def __repr__(self):
+        """Convenience method to show customer information in the console."""
+
+        return "<Customer: %s, %s %s>" % (self.email, self.first_name, self.last_name)
 
     @classmethod
     def get_by_email(cls, email):
         """Query for a specific melon in the database by the primary key"""
 
-        # TODO: Need to implement this.
+        cursor = db_connect()
+        QUERY = """
+                SELECT  email, 
+                        first_name,
+                        last_name,
+                        password
+                FROM Customers
+                WHERE email = ?
+                """
+        
+        cursor.execute(QUERY, (email,))
+
+        row = cursor.fetchone()
+
+        if not row:
+            return None
+
+        customer = Customer(*row)
+
+        return customer
+
 
 
 def db_connect():
