@@ -63,21 +63,21 @@ def shopping_cart():
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
     shopping_list = session['shopping_cart']
-    melon_tuple_list = []
+    melon_cart_dict = {}
+
     for melon_id in shopping_list:
-        # price = melon_id.price
-        # Maybe create a Class method in model.py that returns the 'self' melon given and id, then you can ask that instance for its .price, .common_name, etc.
-        print model.Melon.melon.id 
+        melon = model.Melon.get_by_id(melon_id)
+        price = melon.price
+        common_name = melon.common_name
 
-        # this_melon = model.Melon.get_by_id(item)
-        # common_name = this_melon[1]
-        # price = this_melon[2]
-        # melon_tuple = (common_name, price)
-        # melon_tuple_list.append(melon_tuple)
+        if melon_id in melon_cart_dict:
+            melon_cart_dict[melon_id][2] += 1
+        else: 
+            quantity = 1
+            melon_info = [common_name, price, quantity]
+            melon_cart_dict[melon_id] = melon_info
 
-        # From here, use the attributes of each melon object (.price, .common_name) and append them to a list of two-item lists. Then pass that list to Jinja and unpack each two-item list with indices. Presto, cart. No tuples necessary.
-
-    return render_template("cart.html", shopping_list = shopping_list, melon_tuple_list = melon_tuple_list)
+    return render_template("cart.html", melon_cart_dict=melon_cart_dict)
 
 
 @app.route("/add_to_cart/<int:id>")

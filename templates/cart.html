@@ -13,6 +13,7 @@
     redirect user to shopping cart page via a link        --> 
 
 
+    <table class="table table-striped">
     <thead>
         <tr>
             <th>Melon Name</th>
@@ -22,15 +23,16 @@
         </tr>
     </thead>
     <tbody>
-{% for melon in melon_tuple_list %}
+{% for melon in melon_cart_dict %}
         <tr>
-            <td>{{ melon[0] }}</td>
-            <td>{{ melon[1] }}</td>
-            <td>1</td>
-            <td>{{ melon[1] * 1 }}</td>
+            <td>{{ melon_cart_dict[melon][0] }}</td>
+            <td>${{ melon_cart_dict[melon][1] }}</td>
+            <td>{{ melon_cart_dict[melon][2] }}</td>
+            <td>${{ melon_cart_dict[melon][1] * melon_cart_dict[melon][2] }}</td>
         </tr>
 {% endfor %}
     </tbody>
+</table>
     <!-- <table class="table table-striped">
         <thead>
         <tr>
